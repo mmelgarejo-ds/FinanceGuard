@@ -46,6 +46,9 @@ retención a tiempo.
 
 El baseline detectaba menos de 1 de cada 5 clientes que efectivamente abandonaban (recall 0,19). El modelo final detecta 2 de cada 3 (recall 0,666) — la mejora central del proyecto no está en el AUC, sino en esa capacidad de detección real.
 
+<p align="center"><img src="figures/matriz_confusion_threshold.png" alt="Matriz de confusión — threshold default vs. optimizado" width="90%"></p>
+<p align="center"><sub>Matriz de confusión del modelo final con threshold default (0,5) vs. optimizado (0,309), sobre el conjunto de prueba (2.000 clientes). La diferencia entre ambas es exactamente los 72 clientes adicionales detectados: 271 vs. 199 verdaderos positivos.</sub></p>
+
 **Por qué se priorizó recall sobre precision:** en un problema de retención, el costo de no detectar a un cliente que se va (falso negativo) es perder ese cliente; el costo de contactar a alguien que en realidad no se iba (falso positivo) es, como máximo, una acción de retención de más. Esa asimetría justifica optimizar el threshold para maximizar recall en vez de dejarlo en el valor por defecto — con threshold optimizado (0,309) se detectan **72 clientes en riesgo adicionales** frente a la configuración default (0,5).
 
 **Hallazgos clave:**

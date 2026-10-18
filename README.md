@@ -53,9 +53,26 @@ Con threshold optimizado: **72 clientes en riesgo adicionales detectados** vs co
 
 ---
 
+**Informe ejecutivo** (hallazgos y recomendaciones de negocio, pensado para lectores no técnicos): [`INFORME_EJECUTIVO.md`](INFORME_EJECUTIVO.md).
+
+---
+
 ## Stack
 
 Python · Pandas · scikit-learn · XGBoost · LightGBM · CatBoost · Optuna · Matplotlib · Seaborn
+
+---
+
+## Cómo reproducirlo
+
+```bash
+git clone https://github.com/mmelgarejo-ds/FinanceGuard.git
+cd FinanceGuard
+pip install -r requirements.txt
+jupyter notebook
+```
+
+Correr los notebooks en orden (1 → 2 → 3 → 4). El dataset `Churn_Modelling.csv` es un dataset público estándar de Kaggle, no incluido en el repo por licencia de distribución.
 
 ---
 

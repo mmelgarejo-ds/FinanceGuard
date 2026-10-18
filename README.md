@@ -38,48 +38,28 @@ retención a tiempo.
 
 ## Resultados
 
-| Métrica | Baseline (Regresión Logística) | Modelo final (CatBoost) |
-|---|---|---|
-| AUC | 0.775 | **0.868** |
-| Recall | 0.19 | **0.666** |
-| Precision | — | 0.80 |
+| Métrica | Baseline (Regresión Logística) | Modelo final (CatBoost) | Mejora |
+|---|---|---|---|
+| AUC | 0.775 | **0.868** | +0.093 |
+| Recall | 0.19 | **0.666** | +0.476 |
+| Precision | — | 0.80 | — |
 
-Con threshold optimizado: **72 clientes en riesgo adicionales detectados** vs configuración por defecto.
+El baseline detectaba menos de 1 de cada 5 clientes que efectivamente abandonaban (recall 0,19). El modelo final detecta 2 de cada 3 (recall 0,666) — la mejora central del proyecto no está en el AUC, sino en esa capacidad de detección real.
+
+**Por qué se priorizó recall sobre precision:** en un problema de retención, el costo de no detectar a un cliente que se va (falso negativo) es perder ese cliente; el costo de contactar a alguien que en realidad no se iba (falso positivo) es, como máximo, una acción de retención de más. Esa asimetría justifica optimizar el threshold para maximizar recall en vez de dejarlo en el valor por defecto — con threshold optimizado (0,309) se detectan **72 clientes en riesgo adicionales** frente a la configuración default (0,5).
 
 **Hallazgos clave:**
 - Clientes en Alemania tienen 2.27x más probabilidad de churn
 - Clientes inactivos tienen 0.36x probabilidad (factor protector invertido)
 - Segmento de mayor riesgo: balance alto + inactivo → churn hasta 78% (DBSCAN)
 
-**Qué significan estos números para el negocio:** si un banco dirigiera una campaña de retención guiada por este modelo, debería contactar primero a clientes alemanes con balance alto e inactividad reciente — son el segmento con mayor probabilidad de abandono detectada en este dataset. Esto es una hipótesis derivada del análisis, no un resultado medido en una campaña real: no hay datos de costo de retención ni de tasa de éxito de contacto para proyectar un retorno económico.
-
-**Prevención de leakage:** se descartaron antes de modelar las columnas puramente identificadoras (`RowNumber`, `CustomerId`, `Surname`), que no aportan señal predictiva y podrían introducir sobreajuste específico del dataset. El resto de las variables (balance, actividad, geografía, edad) están disponibles en el momento de hacer la predicción, sin usar información posterior al resultado.
-
-<p align="center"><img src="figures/churn_geografia_genero.png" alt="Tasa de churn por geografía y género" width="80%"></p>
-<p align="center"><sub>Tasa de abandono por país y género. Más detalle y gráficos adicionales en <a href="INFORME_EJECUTIVO.md">INFORME_EJECUTIVO.md</a>.</sub></p>
-
----
-
-**Informe ejecutivo** (hallazgos y recomendaciones de negocio, pensado para lectores no técnicos): [`INFORME_EJECUTIVO.md`](INFORME_EJECUTIVO.md).
+**Prevención de fuga de datos:** se eliminaron `RowNumber`, `CustomerId` y `Surname` antes de entrenar — son identificadores sin poder predictivo real que podrían filtrar información indirecta (ej. orden de carga de los datos) sin aportar señal genuina de negocio.
 
 ---
 
 ## Stack
 
 Python · Pandas · scikit-learn · XGBoost · LightGBM · CatBoost · Optuna · Matplotlib · Seaborn
-
----
-
-## Cómo reproducirlo
-
-```bash
-git clone https://github.com/mmelgarejo-ds/FinanceGuard.git
-cd FinanceGuard
-pip install -r requirements.txt
-jupyter notebook
-```
-
-Correr los notebooks en orden (1 → 2 → 3 → 4). El dataset `Churn_Modelling.csv` es un dataset público estándar de Kaggle, no incluido en el repo por licencia de distribución.
 
 ---
 

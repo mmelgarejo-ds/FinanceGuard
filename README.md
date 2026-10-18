@@ -46,8 +46,10 @@ retención a tiempo.
 
 El baseline detectaba menos de 1 de cada 5 clientes que efectivamente abandonaban (recall 0,19). El modelo final detecta 2 de cada 3 (recall 0,666) — la mejora central del proyecto no está en el AUC, sino en esa capacidad de detección real.
 
-<p align="center"><img src="figures/matriz_confusion_threshold.png" alt="Matriz de confusión — threshold default vs. optimizado" width="90%"></p>
-<p align="center"><sub>Matriz de confusión del modelo final con threshold default (0,5) vs. optimizado (0,309), sobre el conjunto de prueba (2.000 clientes). La diferencia entre ambas es exactamente los 72 clientes adicionales detectados: 271 vs. 199 verdaderos positivos.</sub></p>
+**Dos comparaciones distintas, para no confundirlas:** la tabla de arriba compara dos *modelos* (Regresión Logística baseline vs. CatBoost final), ambos en su threshold por defecto (0,5). La matriz de abajo compara, dentro del *mismo* modelo final (CatBoost), dos *thresholds* distintos: 0,5 vs. 0,309. Por eso el recall de CatBoost a threshold 0,5 (199/407 = 0,489, visible en la matriz) no es ni el 0,19 de la tabla (ese es otro modelo) ni el 0,666 del threshold optimizado (ese es otro threshold) — son tres números de tres combinaciones distintas de modelo×threshold, no un error de cálculo.
+
+<p align="center"><img src="figures/matriz_confusion_threshold.png" alt="Matriz de confusión — CatBoost con threshold default vs. optimizado" width="90%"></p>
+<p align="center"><sub>Matriz de confusión del modelo final (CatBoost) con threshold 0,5 vs. 0,309, sobre el mismo conjunto de prueba (2.000 clientes, 407 abandonos reales). La diferencia entre ambos thresholds es exactamente los 72 clientes adicionales detectados: 271 vs. 199 verdaderos positivos.</sub></p>
 
 **Por qué se priorizó recall sobre precision:** en un problema de retención, el costo de no detectar a un cliente que se va (falso negativo) es perder ese cliente; el costo de contactar a alguien que en realidad no se iba (falso positivo) es, como máximo, una acción de retención de más. Esa asimetría justifica optimizar el threshold para maximizar recall en vez de dejarlo en el valor por defecto — con threshold optimizado (0,309) se detectan **72 clientes en riesgo adicionales** frente a la configuración default (0,5).
 

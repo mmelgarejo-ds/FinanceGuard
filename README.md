@@ -51,6 +51,13 @@ Con threshold optimizado: **72 clientes en riesgo adicionales detectados** vs co
 - Clientes inactivos tienen 0.36x probabilidad (factor protector invertido)
 - Segmento de mayor riesgo: balance alto + inactivo → churn hasta 78% (DBSCAN)
 
+**Qué significan estos números para el negocio:** si un banco dirigiera una campaña de retención guiada por este modelo, debería contactar primero a clientes alemanes con balance alto e inactividad reciente — son el segmento con mayor probabilidad de abandono detectada en este dataset. Esto es una hipótesis derivada del análisis, no un resultado medido en una campaña real: no hay datos de costo de retención ni de tasa de éxito de contacto para proyectar un retorno económico.
+
+**Prevención de leakage:** se descartaron antes de modelar las columnas puramente identificadoras (`RowNumber`, `CustomerId`, `Surname`), que no aportan señal predictiva y podrían introducir sobreajuste específico del dataset. El resto de las variables (balance, actividad, geografía, edad) están disponibles en el momento de hacer la predicción, sin usar información posterior al resultado.
+
+<p align="center"><img src="figures/churn_geografia_genero.png" alt="Tasa de churn por geografía y género" width="80%"></p>
+<p align="center"><sub>Tasa de abandono por país y género. Más detalle y gráficos adicionales en <a href="INFORME_EJECUTIVO.md">INFORME_EJECUTIVO.md</a>.</sub></p>
+
 ---
 
 **Informe ejecutivo** (hallazgos y recomendaciones de negocio, pensado para lectores no técnicos): [`INFORME_EJECUTIVO.md`](INFORME_EJECUTIVO.md).

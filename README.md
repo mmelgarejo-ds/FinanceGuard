@@ -70,4 +70,4 @@ Python · Pandas · scikit-learn · XGBoost · LightGBM · CatBoost · Optuna ·
 
 ## Autor
 
-Mauricio Melgarejo · [LinkedIn](https://www.linkedin.com/in/mauricio-daniel-melgarejo-amaro-482596105/) · [GitHub](https://github.com/mmelgarejo-ds)
+Mauricio Melgarejo · [LinkedIn](https://www.linkedin.com/in/mmelgarejo-ds/) · [GitHub](https://github.com/mmelgarejo-ds)

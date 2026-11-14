@@ -5,7 +5,6 @@
 ![XGBoost](https://img.shields.io/badge/XGBoost-FF6600?style=flat&logo=xgboost&logoColor=white)
 
 Proyecto de Machine Learning para predecir abandono de clientes en un banco digital ficticio.
-Módulo 4 — Soy Henry Data Science AI.
 
 ---
 
@@ -21,7 +20,7 @@ retención a tiempo.
 
 - 10.000 registros · 11 features tras limpieza
 - Variable objetivo: `Exited` (1 = abandonó, 0 = se quedó)
-- Fuente: Churn_Modelling.csv
+- Fuente: `Churn_Modelling.csv` (no incluido en el repositorio)
 
 ---
 
@@ -62,6 +61,16 @@ El baseline detectaba menos de 1 de cada 5 clientes que efectivamente abandonaba
 
 ---
 
+## Cómo reproducirlo
+
+```bash
+pip install -r requirements.txt
+```
+
+Colocar `Churn_Modelling.csv` en la raíz del repositorio y ejecutar los notebooks en orden, del 1 al 4.
+
+---
+
 ## Stack
 
 Python · Pandas · scikit-learn · XGBoost · LightGBM · CatBoost · Optuna · Matplotlib · Seaborn
@@ -71,3 +80,5 @@ Python · Pandas · scikit-learn · XGBoost · LightGBM · CatBoost · Optuna ·
 ## Autor
 
 Mauricio Melgarejo · [LinkedIn](https://www.linkedin.com/in/mmelgarejo-ds/) · [GitHub](https://github.com/mmelgarejo-ds)
+
+<sub>Proyecto desarrollado durante la carrera de Data Science de Henry (2026).</sub>
